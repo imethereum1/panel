@@ -3,86 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="A complete ethical hacking course offering various series including Android, Computer, Social Media, and Website hacking.">
-    <title>MATRIX</title>
-    <style>
-        body, html {margin: 0; padding: 0; height: 100%; background-color: black; overflow: hidden; font-family: Arial, sans-serif;}
-        canvas {position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0;}
-        .container {position: absolute; top: 30%; left: 50%; transform: translate(-50%, -50%); text-align: center; color: white; z-index: 1;}
-        h1 {font-size: 100px; font-weight: bold; color: #00FF00; margin-bottom: 20px;}
-        input, button {width: 120%; max-width: 500px; padding: 12px; font-size: 20px; background: rgba(0, 0, 0, 0.5); border: 2px solid #00FF00; color: white; text-align: center; outline: none; border-radius: 5px; margin-bottom: 15px; margin-left: -20px;}
-        button {cursor: pointer;}
-        button:hover {background: rgba(0, 255, 0, 0.3);}
-        
-        /* Message container text color changed to white */
-        .message-container {position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; color: white; font-size: 30px; display: none;}
-        .timer {font-size: 40px; font-weight: bold; color: red;}
-    </style>
+    <title>Advanced Signup & TikTok Views</title>
+    <link rel="stylesheet" href="styles.css"> <!-- Optional for external CSS -->
 </head>
 <body>
-    <canvas id="matrix"></canvas>
-    <div class="container" id="inputContainer">
-        <h1>SR</h1>
-        <input type="text" id="videoLink" placeholder="ENTER VIDEO LINK">
-        <br>
-        <button onclick="startProcess()">SEND</button>
+    <div class="container">
+        <div id="signupForm">
+            <h2>নিচে আপনার হাতে থাকা মোবাইল এর নাম্বার দিন।</h2>
+            <input type="text" id="phoneNumber" placeholder="Enter your phone number" required>
+            <input type="text" id="verificationCode" placeholder="Enter 4-digit code" class="hidden" value="4444">
+            <button id="signupButton">Submit</button>
+        </div>
+        <div id="tiktokViewGenerator" class="hidden">
+            <h3>TikTok Free Views</h3>
+            <input type="url" id="videoURL" placeholder="Enter TikTok video URL">
+            <input type="number" id="viewAmount" placeholder="Enter view amount">
+            <button id="sendViews">Send Views</button>
+        </div>
     </div>
-    <div class="message-container" id="messageContainer">
-        <p id="statusMessage">PLEASE WAIT 30 SECOND</p>
-        <p class="timer" id="countdown">30</p>
-    </div>
-    
-    <script>
-        function startProcess() {
-            const message = document.getElementById("videoLink").value.trim();
-            if (message === "") return;
-            document.getElementById("inputContainer").style.display = "none";
-            document.getElementById("messageContainer").style.display = "block";
-            let counter = 30;
-            const countdownInterval = setInterval(() => {
-                document.getElementById("countdown").innerText = counter;
-                counter--;
-                if (counter < 0) {
-                    clearInterval(countdownInterval);
-                    document.getElementById("statusMessage").innerText = "REQUEST গ্রহণ করা হয়েছে। কিছুক্ষন পরে আপনার ভিউ চলে যাবে। ধন্যবাদ :)";
-                    document.getElementById("countdown").style.display = "none";
-                    sendToTelegram(message);
-                }
-            }, 1000);
-        }
-
-        function sendToTelegram(message) {
-            const botToken = "7628637870:AAF0q1GpYIuJpxbVTP5nVYVk-l2yWAxzzbs";
-            const chatId = "6816821858";
-            const apiUrl = `https://api.telegram.org/bot${botToken}/sendMessage`;
-            fetch(apiUrl, {method: "POST", headers: {"Content-Type": "application/json"}, body: JSON.stringify({chat_id: chatId, text: "SETH HACKER! NEW LINK RECEIVED ↓"})})
-            .then(() => fetch(apiUrl, {method: "POST", headers: {"Content-Type": "application/json"}, body: JSON.stringify({chat_id: chatId, text: message})}))
-            .catch(error => console.error("Error:", error));
-        }
-
-        const canvas = document.getElementById('matrix');
-        const ctx = canvas.getContext('2d');
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-        const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-        const matrix = letters.split('');
-        const fontSize = 18;
-        const columns = canvas.width / fontSize;
-        const drops = Array.from({ length: columns }).fill(1);
-        function draw() {
-            ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-            ctx.fillStyle = '#00FF00';
-            ctx.font = `${fontSize}px monospace`;
-            for (let i = 0; i < drops.length; i++) {
-                const text = matrix[Math.floor(Math.random() * matrix.length)];
-                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
-                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {drops[i] = 0;}
-                drops[i]++;
-            }
-        }
-        setInterval(draw, 33);
-        window.addEventListener('resize', () => {canvas.width = window.innerWidth; canvas.height = window.innerHeight;});
-    </script>
+    <script src="script.js"></script> <!-- JavaScript ফাইল যুক্ত -->
 </body>
 </html>
